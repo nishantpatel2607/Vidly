@@ -39,60 +39,54 @@ namespace Vidly.Controllers
             return View(Movie);
         }
 
-        //private IEnumerable<Movie> GetMovies()
-        //{
-        //    return new List<Movie>
-        //    {
-        //        new Movie { Id = 1, Name = "Shrek" },
-        //        new Movie { Id = 2, Name = "Wall-e" }
-        //    };
-        //}
 
-
-        // GET: Movies/Random
-        public ActionResult Random()
+        public ActionResult New()
         {
-            var movie = new Movie() {Name = "Shrek!"};
-            var customers = new List<Customer>
+            var genres = _context.Genres.ToList();
+            var viewModel = new MovieFormViewModel()
             {
-                new Customer {Name = "Customer 1"},
-                new Customer {Name = "Customer 2"},
-                new Customer {Name = "Customer 3"},
-                new Customer {Name = "Customer 4"},
-                new Customer {Name = "Customer 5"},
-                 new Customer {Name = "Customer 6"}
-
+                Genres = genres
             };
+            return View("MovieForm", viewModel);
 
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers =  customers
-            };
-
-            return View(viewModel);// (movie);
         }
 
-        //public ActionResult Edit(int id)
-        //{
-        //    return Content("id=" + id);
-        //}
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.NumberInStock = movie.NumberInStock;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
 
-        //public ActionResult Index(int? pageIndex, string sortBy)
-        //{
-        //    if (pageIndex.HasValue == false)
-        //        pageIndex = 1;
-        //    if (String.IsNullOrWhiteSpace(sortBy))
-        //    {
-        //        sortBy = "Name";
-        //    }
-        //    return Content(String.Format("PageIndex = {0}&SortBy={1}", pageIndex, sortBy));
-        //}
+        public ActionResult Edit(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
 
-        //[Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
-        //public ActionResult ByReleaseDate(int year,int month)
-        //{
-        //    return Content(year + "/" + month);
-        //}
+            var viewModel = new MovieFormViewModel()
+            {
+                Movie = movie,
+                Genres = _context.Genres.ToList()
+            };
+            return View("MovieForm", viewModel);
+        }
+
+      
     }
 }

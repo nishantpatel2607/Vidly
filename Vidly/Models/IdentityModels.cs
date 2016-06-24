@@ -23,6 +23,7 @@ namespace Vidly.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public  DbSet<MembershipType> MembershipTypes { get; set; } //used to get the list of membership types in form
+        public DbSet<Genre> Genres { get; set; } //used to get the list of genres in form
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
