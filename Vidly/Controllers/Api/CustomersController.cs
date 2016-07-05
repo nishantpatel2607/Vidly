@@ -20,25 +20,25 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
         // Get /api/customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<MovieDto> GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer,CustomerDto>);
+            return _context.Movie.ToList().Select(Mapper.Map<Customer,MovieDto>);
         }
 
         // Get /api/customers/1
 
         public IHttpActionResult GetCustomer(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Movie.SingleOrDefault(c => c.Id == id);
             if (customer == null)
                 return NotFound();
             else
-                return Ok( Mapper.Map<Customer, CustomerDto>(customer));
+                return Ok( Mapper.Map<Customer, MovieDto>(customer));
         }
 
         //POST /api/customers
         [HttpPost]
-        public IHttpActionResult CreateCustomer (CustomerDto customerDto)
+        public IHttpActionResult CreateCustomer (MovieDto customerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -46,8 +46,8 @@ namespace Vidly.Controllers.Api
             }
             else
             {
-                var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
-                _context.Customers.Add(customer);
+                var customer = Mapper.Map<MovieDto, Customer>(customerDto);
+                _context.Movie.Add(customer);
                 _context.SaveChanges();
 
                 customerDto.Id = customer.Id;
@@ -58,7 +58,7 @@ namespace Vidly.Controllers.Api
 
         //PUT /api/customers/1
         [HttpPut]
-        public void UpdateCustomer(int id,CustomerDto customerDto)
+        public void UpdateCustomer(int id,MovieDto customerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace Vidly.Controllers.Api
             }
             else
             {
-                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+                var customerInDb = _context.Movie.SingleOrDefault(c => c.Id == id);
                 if (customerInDb == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -87,13 +87,13 @@ namespace Vidly.Controllers.Api
         public void DeleteCustomer(int id)
         {
             
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = _context.Movie.SingleOrDefault(c => c.Id == id);
             if (customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
                 
 
-            _context.Customers.Remove(customerInDb);
+            _context.Movie.Remove(customerInDb);
            _context.SaveChanges();
 
             
