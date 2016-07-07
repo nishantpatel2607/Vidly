@@ -20,7 +20,10 @@
     </div>
 
     
-    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render(new string[] {
+    "~/bundles/lib",
+    "~/bundels/jqueryCDN"
+    })
     @RenderSection("scripts", required: false)
 </body>
 </html>

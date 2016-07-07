@@ -15,6 +15,8 @@ namespace Vidly
                         "~/Scripts/respond.js",
                         "~/Scripts/datatables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap.js"));
+            bundles.UseCdn = true;
+            bundles.Add(new ScriptBundle("~/bundles/jqueryCDN", "https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
