@@ -20,9 +20,10 @@ namespace Vidly.Controllers.Api
         }
 
         // Get /api/movies
-        public IEnumerable<MovieDto> GetMovies()
+        public IHttpActionResult GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            var movieDtos = _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return Ok(movieDtos);
         }
 
         // Get /api/movies/1

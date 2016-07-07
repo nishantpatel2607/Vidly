@@ -16,6 +16,8 @@ namespace Vidly.Dtos
         public string Name { get; set; }
 
         public bool isSubsribedToNewsLetter { get; set; }
+
+        public MembershipTypeDto MembershipType { get; set; }
         
         public byte MembershipTypeId { get; set; } //EF will treat as foreign key
 

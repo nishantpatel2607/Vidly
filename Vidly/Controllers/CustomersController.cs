@@ -26,9 +26,9 @@ namespace Vidly.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = _context.Movie.Include(c => c.MembershipType).ToList();
+            //var customers = _context.Movie.Include(c => c.MembershipType).ToList();
             
-            return View(customers);
+            return View();
         }
 
 
@@ -48,7 +48,7 @@ namespace Vidly.Controllers
 
         public ActionResult Details(int id)
         {
-            var customer = _context.Movie.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
             if (customer == null)
                 return HttpNotFound();
             return View(customer);
@@ -71,11 +71,11 @@ namespace Vidly.Controllers
 
             if (customer.Id == 0)
             {
-                _context.Movie.Add(customer);
+                _context.Customers.Add(customer);
             }
             else
             {
-                var customerInDb = _context.Movie.Single(c => c.Id == customer.Id);
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
                 customerInDb.Name = customer.Name;
                 customerInDb.BirthDate = customer.BirthDate;
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
@@ -87,7 +87,7 @@ namespace Vidly.Controllers
 
         public ActionResult Edit(int id)
         {
-            var customer = _context.Movie.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
             {
                 return HttpNotFound();
