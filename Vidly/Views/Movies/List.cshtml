@@ -6,9 +6,9 @@
 
 <h2>Movies</h2>
 
-
-@Html.ActionLink("New", "New", "Movies", null, new { @class = "btn btn-primary", @role = "button" })
-
+<p>
+    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary", @role = "button" })
+</p>
 
 <table id="movies" class="table table-bordered table-hover">
     <thead>
@@ -18,12 +18,12 @@
             <th>Delete</th>
         </tr>
     </thead>
-    <tfoot>
+    @*<tfoot>
         <tr>
             <th>Movie</th>
             <th>Genre</th>
         </tr>
-    </tfoot>
+    </tfoot>*@
     <tbody></tbody>
 </table>
 
@@ -33,10 +33,10 @@
         $(document).ready(function () {
 
             // Setup - add a text input to each footer cell
-            $('#movies tfoot th').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            });
+            //$('#movies tfoot th').each(function () {
+            //    var title = $(this).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            //});
 
 
             var table = $("#movies").DataTable({
@@ -82,17 +82,17 @@
             });
 
             // Apply the search
-            table.columns().every(function () {
-                var that = this;
+            //table.columns().every(function () {
+            //    var that = this;
 
-                $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
+            //    $('input', this.footer()).on('keyup change', function () {
+            //        if (that.search() !== this.value) {
+            //            that
+            //                .search(this.value)
+            //                .draw();
+            //        }
+            //    });
+            //});
         })
     </script>
 }
