@@ -16,7 +16,7 @@ namespace Vidly.Models
 
         public bool isSubsribedToNewsLetter { get; set; }
 
-        public MembershipType MembershipType { get; set; }
+        public  MembershipType MembershipType { get; set; }
 
         [Display(Name="Membership Type")]
         public byte MembershipTypeId { get; set; } //EF will treat as foreign key
