@@ -13,6 +13,11 @@ namespace Vidly.Controllers.Api
     {
         private ApplicationDbContext _context;
 
+        public NewRentalsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         [HttpPost]
         public IHttpActionResult CreateNewRental(NewRentalDto newRental)
         {
